@@ -18,18 +18,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Usuario {
-    
+public class Hortalica {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
-    @NotBlank @Size(max = 40)
+    @NotBlank @Size(max = 30)
     private String nome;
 
-    @NotBlank @Size(max = 15)
-    private String username;
+    @NotBlank @Size(max = 20)
+    private String mesInicio;
 
     @NotBlank @Size(max = 20)
-    private String senha;
+    private String mesFim;
+
 }
