@@ -2,6 +2,7 @@ package br.com.fiap.globalSolution.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,67 +13,62 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.globalSolution.exception.RestNotFoundException;
 import br.com.fiap.globalSolution.models.Usuario;
+import br.com.fiap.globalSolution.repository.UsuarioRepository;
+import jakarta.validation.Valid;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class usuarioController {
+public class UsuarioController {
 
     Logger log = LoggerFactory.getLogger(Usuario.class);
 
-    List<Usuario> usuarios = new ArrayList<>();
+    @Autowired
+    UsuarioRepository repository; 
     
     @GetMapping("/api/usuarios")
     public List<Usuario> index(){
-        return usuarios;
+        return repository.findAll();
     }
 
     @GetMapping("/api/usuarios/{id}")
     public ResponseEntity<Usuario> show(@PathVariable int id){
         log.info("buscando usuario com id:" + id);
-        var usuarioEncontrado = usuarios.stream().filter(d -> d.getId().equals(id)).findFirst();
-
-        if (usuarioEncontrado.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        return ResponseEntity.ok(usuarioEncontrado.get());
+        var usuarioEncontrado = getUsuario(id);
+        return ResponseEntity.ok(usuarioEncontrado);
     }
 
     @PostMapping("/api/usuarios")
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> create(@RequestBody @Valid Usuario usuario){
         log.info("cadastrando usuario: " + usuario);
-        usuario.setId(usuarios.size() + 1);
-        usuarios.add(usuario);
+
+        repository.save(usuario);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
 
     @PutMapping("/api/usuarios/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Integer id, @RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> update(@PathVariable Integer id, @RequestBody @Valid Usuario usuario){
         log.info("atualizando usuario com id:" + id);
-        var usuarioEncontrado = usuarios.stream().filter(d -> d.getId().equals(id)).findFirst();
+        getUsuario(id);
 
-        if (usuarioEncontrado.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        usuarios.remove(usuarioEncontrado.get());
         usuario.setId(id);
-        usuarios.add(usuario);
-
-        return ResponseEntity.status(HttpStatus.OK).body(usuario);
+        repository.save(usuario);
+        return ResponseEntity.ok(usuario);
     }
 
     @DeleteMapping("/api/usuarios/{id}")
         public ResponseEntity<Usuario> destroy(@PathVariable Integer id){
             log.info("apagando usuario com id:" + id);
-            var usuarioEncontrado = usuarios.stream().filter(d -> d.getId().equals(id)).findFirst();
-
-            if (usuarioEncontrado.isEmpty())
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-            usuarios.remove(usuarioEncontrado.get());
-
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            var usuario = getUsuario(id);
+            repository.delete(usuario);
+            return ResponseEntity.noContent().build();
         }
+
+    
+    private Usuario getUsuario(int id) {
+        return repository.findById(id).orElseThrow(() -> new RestNotFoundException("despesa não encontrada"));
+    }
 }

@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,18 +18,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Usuario {
-    
+public class TipoHortalica {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
-    @NotBlank @Size(max = 40)
-    private String nome;
+    @NotNull
+    private char nome;
 
-    @NotBlank @Size(max = 15)
-    private String username;
-
-    @NotBlank @Size(max = 20)
-    private String senha;
+    @NotBlank
+    private String familiaBotanica;
 }
