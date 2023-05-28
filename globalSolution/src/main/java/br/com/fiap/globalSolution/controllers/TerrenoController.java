@@ -18,7 +18,6 @@ import br.com.fiap.globalSolution.models.Terreno;
 import br.com.fiap.globalSolution.repository.TerrenoRepository;
 import jakarta.validation.Valid;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -18,7 +18,6 @@ import br.com.fiap.globalSolution.models.Telefone;
 import br.com.fiap.globalSolution.repository.TelefoneRepository;
 import jakarta.validation.Valid;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
