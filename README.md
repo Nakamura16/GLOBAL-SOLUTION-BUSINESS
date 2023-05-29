@@ -44,3 +44,4 @@ PERGUNTAS
 - databaseseeder
 - conexão com o banco oracle
 - JsonProperty
+- paginação, busca e ordenação
