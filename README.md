@@ -45,3 +45,31 @@ PERGUNTAS
 - conexão com o banco oracle
 - JsonProperty
 - paginação, busca e ordenação
+
+
+[
+    {
+        "id": 1,
+        "telefone": "111111111",
+        "ddd": "123",
+        "ddi": "55555",
+        "usuario": {
+            "id": 1,
+            "nome": "Carlos",
+            "username": "carlitos",
+            "senha": "alo"
+        }
+    },
+    {
+        "id": 2,
+        "telefone": "222222",
+        "ddd": "13",
+        "ddi": "784",
+        "usuario": {
+            "id": 1,
+            "nome": "Carlos",
+            "username": "carlitos",
+            "senha": "alo"
+        }
+    }
+]
