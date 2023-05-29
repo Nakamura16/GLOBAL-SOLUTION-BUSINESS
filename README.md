@@ -37,3 +37,10 @@ response
 
 Delete:
 só manda a URL e ele responde 204
+
+
+PERGUNTAS
+- equalsandhashcode
+- databaseseeder
+- conexão com o banco oracle
+- JsonProperty
