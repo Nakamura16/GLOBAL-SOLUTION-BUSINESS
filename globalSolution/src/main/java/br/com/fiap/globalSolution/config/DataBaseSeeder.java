@@ -4,9 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import br.com.fiap.globalSolution.models.Hortalica;
 import br.com.fiap.globalSolution.models.Telefone;
+import br.com.fiap.globalSolution.models.Terreno;
+import br.com.fiap.globalSolution.models.TipoHortalica;
 import br.com.fiap.globalSolution.models.Usuario;
+//import br.com.fiap.globalSolution.repository.EnderecoRepository;
+import br.com.fiap.globalSolution.repository.HortalicaRepository;
 import br.com.fiap.globalSolution.repository.TelefoneRepository;
+import br.com.fiap.globalSolution.repository.TerrenoRepository;
+import br.com.fiap.globalSolution.repository.TipoHortalicaRepository;
 import br.com.fiap.globalSolution.repository.UsuarioRepository;
 
 import java.util.List;
@@ -20,14 +27,48 @@ public class DataBaseSeeder implements CommandLineRunner {
     @Autowired
     TelefoneRepository telefoneRepository; 
 
+    @Autowired
+    TerrenoRepository terrenoRepository;
+
+    @Autowired
+    HortalicaRepository hortalicaRepository; 
+
+    @Autowired
+    TipoHortalicaRepository tipoHortalicaRepository; 
+
+    // @Autowired
+    // EnderecoRepository enderecoRepository;
+
     @Override
     public void run(String... args) throws Exception{
-        Usuario usuario = new Usuario(1,"Carlos","carlitos", "alo");
-        userRepository.saveAll(List.of(usuario));
-
-        telefoneRepository.saveAll(List.of(
-            Telefone.builder().id(1).telefone("111111111").ddd("123").ddi("55555").usuario(usuario).build(),
-            Telefone.builder().id(2).telefone("222222").ddd("13").ddi("784").usuario(usuario).build()
-        ));
+        Usuario usuario1 = new Usuario(1,"Carlos","carlitos", "alo");
+        Usuario usuario2 = new Usuario(2,"Hugo","huginho", "ola");
+        Usuario usuario3 = new Usuario(3,"Maria","marimari", "hello");
+        userRepository.saveAll(List.of(usuario1,usuario2,usuario3));
+        
+        Telefone telefone1 = new Telefone(1, "123456789", "011", "11111", usuario1);
+        Telefone telefone2 = new Telefone(1, "563456780", "015", "22222", usuario2);
+        Telefone telefone3 = new Telefone(1, "323456782", "014", "33333", usuario3);
+        telefoneRepository.saveAll(List.of(telefone1, telefone2, telefone3));
+        
+        TipoHortalica tipo1 = new TipoHortalica(1, 'a', "alou");
+        TipoHortalica tipo2 = new TipoHortalica(2, 'b', "alou");
+        TipoHortalica tipo3 = new TipoHortalica(3, 'c', "alou");
+        tipoHortalicaRepository.saveAll(List.of(tipo1,tipo2,tipo3));
+        
+        Hortalica horta1 = new Hortalica(1, "cenoura", "fevereiro", "agosto", tipo3);
+        Hortalica horta2 = new Hortalica(1, "repolho", "maio", "setembro", tipo1);
+        Hortalica horta3 = new Hortalica(1, "tomate", "julho", "outubro", tipo2);
+        hortalicaRepository.saveAll(List.of(horta1, horta2, horta3));
+        
+        Terreno terreno1 = new Terreno(1, "125m", "grande da roça", "Rua n/a", "1225", "ZS", usuario1, horta1);
+        Terreno terreno2 = new Terreno(1, "145m", "pequeno da roça", "rua b", "1125", "ZN", usuario2, horta2);
+        Terreno terreno3 = new Terreno(1, "135m", "médio da roça", "rua 9", "1112", "ZL", usuario3, horta3);
+        terrenoRepository.saveAll(List.of(terreno1,terreno2,terreno3));
+        
+    //    Endereco endereco1 = new Endereco(terreno1,"rua 9", "125", "ZO");
+    //    Endereco endereco2 = new Endereco(terreno2,"rua 7", "1152", "ZS");
+    //    Endereco endereco3 = new Endereco(terreno3,"rua 8", "152", "ZN");
+    //    enderecoRepository.saveAll(List.of(endereco1,endereco2,endereco3));
     }
 }

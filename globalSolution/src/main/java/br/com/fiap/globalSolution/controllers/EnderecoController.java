@@ -53,7 +53,7 @@ public class EnderecoController {
     public ResponseEntity<Endereco> update(@PathVariable Integer id, @Valid @RequestBody Endereco endereco){
         log.info("atualizando endereco com id:" + id);
 
-        endereco.setId(id);
+        endereco.setIdTerreno(endereco.getTerreno().getId());
         getEndereco(id);
         repository.save(endereco);
 

@@ -40,11 +40,11 @@ só manda a URL e ele responde 204
 
 
 PERGUNTAS
-- equalsandhashcode
-- databaseseeder
-- conexão com o banco oracle
-- JsonProperty
-- paginação, busca e ordenação
+- equalsandhashcode (equals do object)
+- JsonProperty (JSON -> objeto | Objeto -> JSON)
+- paginação     public Page<Despesa> index(@RequestParam(required = false) String descricao "busca" , @PageableDefault(size = 5) Pageable pageable)
+- busca
+- ordenação
 
 
 [

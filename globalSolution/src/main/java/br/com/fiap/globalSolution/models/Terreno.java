@@ -4,19 +4,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-@Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Entity
 public class Terreno {
 
     @Id
@@ -28,4 +30,19 @@ public class Terreno {
 
     @NotBlank @Size(max = 500)
     private String descricao;
+
+    @NotBlank @Size(max = 100)
+    private String logradouro;
+
+    @NotBlank @Size(max = 10)
+    private String numero;
+
+    @NotBlank @Size(max = 2)
+    private String regiao;
+
+    @ManyToOne
+    private Usuario usuario;
+
+    @ManyToOne
+    private Hortalica hortalica;
 }

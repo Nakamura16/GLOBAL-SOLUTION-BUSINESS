@@ -3,6 +3,9 @@ package br.com.fiap.globalSolution.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +21,6 @@ import br.com.fiap.globalSolution.models.Usuario;
 import br.com.fiap.globalSolution.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 
-import java.util.List;
-
 @RestController
 public class UsuarioController {
 
@@ -29,8 +30,8 @@ public class UsuarioController {
     UsuarioRepository repository; 
     
     @GetMapping("/api/usuarios")
-    public List<Usuario> index(){
-        return repository.findAll();
+    public Page<Usuario> index(@PageableDefault(size= 100) Pageable pageable){
+        return repository.findAll(pageable);
     }
 
     @GetMapping("/api/usuarios/{id}")
