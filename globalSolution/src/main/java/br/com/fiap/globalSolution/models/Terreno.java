@@ -35,7 +35,7 @@ public class Terreno {
     private String logradouro;
 
     @NotBlank @Size(max = 10)
-    private String numero;
+    private String numeroLogradouro;
 
     @NotBlank @Size(max = 2)
     private String regiao;

@@ -30,7 +30,7 @@ public class UsuarioController {
     UsuarioRepository repository; 
     
     @GetMapping("/api/usuarios")
-    public Page<Usuario> index(@PageableDefault(size= 100) Pageable pageable){
+    public Page<Usuario> index(@PageableDefault(size= 100,sort = {"nome"}) Pageable pageable){
         return repository.findAll(pageable);
     }
 
@@ -68,8 +68,7 @@ public class UsuarioController {
             return ResponseEntity.noContent().build();
         }
 
-    
     private Usuario getUsuario(int id) {
-        return repository.findById(id).orElseThrow(() -> new RestNotFoundException("despesa não encontrada"));
+        return repository.findById(id).orElseThrow(() -> new RestNotFoundException("Usuario não encontrada"));
     }
 }
