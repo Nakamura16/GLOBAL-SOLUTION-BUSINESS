@@ -3,6 +3,9 @@ package br.com.fiap.globalSolution.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.globalSolution.exception.RestNotFoundException;
 import br.com.fiap.globalSolution.models.Hortalica;
 import br.com.fiap.globalSolution.repository.HortalicaRepository;
 import jakarta.validation.Valid;
-
-import java.util.List;
 
 @RestController
 public class HortalicaController {
@@ -28,9 +30,12 @@ public class HortalicaController {
     @Autowired
     HortalicaRepository repository; 
     
-    @GetMapping("/api/hortalicas")
-    public List<Hortalica> index(){
-        return repository.findAll();
+    @GetMapping("/api/hortalicas/")
+    public Page<Hortalica> index(@RequestParam(required = false) String nome,@PageableDefault(sort = {"nome"}) Pageable pageable){
+        if(nome == null)
+            return repository.findAll(pageable);
+        
+        return repository.findByNomeContaining(nome, pageable);
     }
 
     @GetMapping("/api/hortalicas/{id}")
@@ -67,7 +72,6 @@ public class HortalicaController {
             return ResponseEntity.noContent().build();
         }
 
-    
     private Hortalica getHortalica(int id) {
         return repository.findById(id).orElseThrow(() -> new RestNotFoundException("Hortalica não encontrada"));
     }
