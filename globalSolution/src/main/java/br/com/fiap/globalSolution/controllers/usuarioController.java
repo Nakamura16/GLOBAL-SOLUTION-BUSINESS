@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.globalSolution.exception.RestNotFoundException;
 import br.com.fiap.globalSolution.models.Usuario;
 import br.com.fiap.globalSolution.repository.UsuarioRepository;
+import br.com.fiap.globalSolution.models.Credencial;
 import jakarta.validation.Valid;
 
 @RestController
@@ -28,6 +31,12 @@ public class UsuarioController {
 
     @Autowired
     UsuarioRepository repository; 
+
+    @Autowired
+    AuthenticationManager manager;
+
+    @Autowired
+    PasswordEncoder encoder;
     
     @GetMapping("/api/usuarios")
     public Page<Usuario> index(@PageableDefault(size= 100,sort = {"nome"}) Pageable pageable){
@@ -42,12 +51,19 @@ public class UsuarioController {
     }
 
     @PostMapping("/api/usuarios")
-    public ResponseEntity<Usuario> create(@RequestBody @Valid Usuario usuario){
+    public ResponseEntity<Usuario> registrar(@RequestBody @Valid Usuario usuario){
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
         log.info("cadastrando usuario: " + usuario);
 
         repository.save(usuario);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+    }
+    
+    @PostMapping("/api/login")
+    public ResponseEntity<Object> login(@RequestBody @Valid Credencial credencial){
+        manager.authenticate(credencial.toAuthentication());
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/api/usuarios/{id}")
