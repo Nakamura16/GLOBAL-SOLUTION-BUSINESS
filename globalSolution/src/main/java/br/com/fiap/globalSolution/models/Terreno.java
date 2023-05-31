@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Getter
@@ -40,9 +41,11 @@ public class Terreno {
     @NotBlank @Size(max = 2)
     private String regiao;
 
+    @NotNull
     @ManyToOne
     private Usuario usuario;
 
+    @NotNull
     @ManyToOne
     private Hortalica hortalica;
 }

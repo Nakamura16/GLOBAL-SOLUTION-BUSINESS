@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class TerrenoController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping("/api/terrenos/")
-    public Page<Terreno> show(@RequestParam(required = true) int idUsuario,@PageableDefault(sort = {"nome"}) Pageable pageable){
+    public Page<Terreno> show(@RequestParam(required = true) int idUsuario,@PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable){
         var usuarioEncontrado = getUsuario(idUsuario);
         log.info("buscando terrenos para o usuário: " + usuarioEncontrado.getNome());
         return terrenoRepository.findByUsuario(usuarioEncontrado,pageable);

@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -34,6 +35,7 @@ public class Telefone {
     @NotBlank @Size(max = 5)
     private String ddi;
 
+    @NotNull
     @ManyToOne
     private Usuario usuario;
 }
