@@ -2,6 +2,7 @@ package br.com.fiap.globalSolution.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.globalSolution.exception.RestNotFoundException;
+import br.com.fiap.globalSolution.models.Credencial;
 import br.com.fiap.globalSolution.models.Usuario;
 import br.com.fiap.globalSolution.repository.UsuarioRepository;
+import br.com.fiap.globalSolution.service.TokenService;
 import jakarta.validation.Valid;
 
 // update
@@ -30,6 +33,24 @@ public class UsuarioController {
 
     @Autowired
     UsuarioRepository repository; 
+
+    @Autowired
+    TokenService tokenService;
+    
+    //implementaçõs de Security
+
+    @Autowired
+    AuthenticationManager manager;
+
+    @PostMapping("/api/usuarios/login")
+    public ResponseEntity<Object> login(@RequestBody @Valid Credencial credencial){
+        manager.authenticate(credencial.toAuthentication());
+
+        var token = tokenService.generateToken(credencial);
+        return ResponseEntity.ok(token);
+    }
+
+    //end
     
     @GetMapping("/api/usuarios")
     public Page<Usuario> index(@PageableDefault(size= 100,sort = {"nome"}) Pageable pageable){
