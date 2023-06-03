@@ -2,6 +2,7 @@ package br.com.fiap.globalSolution.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -20,7 +21,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http
-            .authorizeHttpRequests().anyRequest().permitAll()
+            .authorizeHttpRequests()
+            .requestMatchers(HttpMethod.POST, "/api/usuarios/login").permitAll()
+            .anyRequest().authenticated()
             .and()
             .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

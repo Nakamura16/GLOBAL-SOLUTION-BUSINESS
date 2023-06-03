@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.globalSolution.exception.RestNotFoundException;
 import br.com.fiap.globalSolution.models.Credencial;
@@ -42,6 +43,9 @@ public class UsuarioController {
     @Autowired
     AuthenticationManager manager;
 
+    @Autowired
+    PasswordEncoder encoder;
+
     @PostMapping("/api/usuarios/login")
     public ResponseEntity<Object> login(@RequestBody @Valid Credencial credencial){
         manager.authenticate(credencial.toAuthentication());
@@ -67,6 +71,7 @@ public class UsuarioController {
     @PostMapping("/api/usuarios")
     public ResponseEntity<Usuario> create(@RequestBody @Valid Usuario usuario){
         log.info("cadastrando usuario: " + usuario);
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
 
         repository.save(usuario);
 
