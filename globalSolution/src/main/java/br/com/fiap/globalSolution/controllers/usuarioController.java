@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 // update
 
 @RestController
-public class UsuarioController {
+public class usuarioController {
 
     Logger log = LoggerFactory.getLogger(Usuario.class);
 
