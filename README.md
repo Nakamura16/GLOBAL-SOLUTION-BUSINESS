@@ -7,37 +7,37 @@
 
 
 ## Usuario
-- Listar Todos usuários
-- Buscar usuário
-- Cadastrar usuário
-- Atualizar usuário
-- Deletar usuário
+- [Listar Todos usuários](#listar_usuários)
+- [Buscar usuário](#buscar_usuário)
+- [Cadastrar usuário](#cadastrar_usuário)
+- [Atualizar usuário](#atualizar_usuário)
+- [Deletar usuário](#deletar_telefone)
 
 ## Telefone
-- Listar telefones por ID de usuário
-- Cadastrar telefone 
-- Atualizar telefone
-- Deletar telefone
+- [Listar telefones por ID de usuário](#listar_telefone_por_id)
+- [Cadastrar telefone](#cadastar_telefone_usuario)
+- [Atualizar telefone](#atualizar_usuário)
+- [Deletar telefone](#deletar_telefone)
 
 ## Terreno
-- Listar terrenos por ID de usuário
-- Cadastrar terreno 
-- Atualiza terreno
-- Deleta terreno
+- [Listar terrenos por ID de usuário](#listar_terrenos_por_id)
+- [Cadastrar terreno](#cadastrar_terreno)
+- [Atualiza terreno](#atualizar_terreno)
+- [Deleta terreno](#deletar_terreno)
 
 ## Hortaliça
-- Listar hortaliças
-- Buscar Hortaliça
-- Cadastrar hortaliças
-- Atualizar hortaliças
-- deletar hortaliças
+- [Listar hortaliças](#listar_hortaliças)
+- [Buscar Hortaliça](#buscar_hortaliça)
+- [Cadastrar hortaliças](#cadastrar_hortalica)
+- [Atualizar hortaliças](#atualizar_hortaliças)
+- [deletar hortaliças](#deletar_hortaliça)
 
 ## Tipo das Hortaliças
-- Listar tipos de hortaliças
-- Buscar tipo de hortaliça
-- Cadastrar tipo hortaliças
-- Atualizar um tipo de hortaliças
-- deletar tipo de hortaliças
+- [Listar tipos de hortaliças](#listar-tipos_de_hortaliças)
+- [Buscar tipo de hortaliça](#buscar_tipo_hortaliça)
+- [Cadastrar tipo hortaliças](#cadastrar_tipo_hortaliças)
+- [Atualizar um tipo de hortaliças](#atualizar_tipo_hortaliças)
+- [deletar tipo de hortaliças](#deletar_tipo_hortalica)
 
 ---
 padrão
@@ -76,7 +76,7 @@ DELETE
 
 **Exemplo Corpo de resposta**
 
-```JS
+```JSON
 [
     {
         "id": 1,
@@ -105,7 +105,7 @@ DELETE
 `GET` /globalSolutio/api/usuarios/{id}
 
 **Exemplo Corpo de resposta**
-```JS
+```JSON
 {
     "id": 1,
     "nome": "nieke",
@@ -133,12 +133,14 @@ DELETE
 |     Senha    |String|     Sim     | O usuario deve criar uma senha  para uso do aplicativo
 
 
-```js
+```JSON
+
 {
-    nome: "Jose Augusto da Silva",
-    username: "JoseGuto",
-    senha: "222222"
+    "nome": "Jose Augusto da Silva",
+    "username": "JoseGuto",
+    "senha": "222222"
 }
+
 ```
 
 **HTTP responses para POST**
@@ -158,7 +160,7 @@ DELETE
 
 **Exemplo Corpo do request**
 
-```JS
+```JSON
 {
     "nome":"java",
     "username":"java",
@@ -167,7 +169,7 @@ DELETE
 ```
 
 **Exemplo Corpo do response**
-```JS
+```JSON
 {
     "id": 1,
     "nome": "java",
@@ -208,7 +210,7 @@ Retorna um arquivo JSON vazio.
 ### Listar_Telefone_por_ID
 `GET` globalSolution/api/telefones/?idUsuario=1
 
-```JS
+```JSON
 {
     "id": 1,
     "telefone": "956783112",
@@ -241,7 +243,7 @@ Retorna um arquivo JSON vazio.
 | usuario | Object | Sim | Contém um objeto referente a um usuário contendo ID, nome e username
 
 **Exemplo do Corpo do Request**
-```JS
+```JSON
 {
     "telefone":"123456",
     "ddd":"011",
@@ -255,7 +257,7 @@ Retorna um arquivo JSON vazio.
 }
 ```
 **Exemplo do Corpo do Response**
-```JS
+```JSON
 {
     "id": 1,
     "telefone": "111111111",
@@ -290,7 +292,7 @@ Retorna um arquivo JSON vazio.
 | usuario | Object | Sim | Contém um objeto referente a um usuário contendo ID, nome e username
 
 **Exemplo do Corpo do Request**
-```JS
+```JSON
 {
     "telefone":"123456",
     "ddd":"011",
@@ -298,7 +300,7 @@ Retorna um arquivo JSON vazio.
 }
 ```
 **Exemplo do Corpo do Response**
-```JS
+```JSON
 {
     "id": 1,
     "telefone": "111111111",
@@ -349,7 +351,7 @@ Retorna um arquivo JSON vazio.
 
 **Exemplo do Corpo do Request `GET`**
 
-```JS
+```JSON
             {
         
 			"id": 1,
@@ -400,6 +402,7 @@ Retorna um arquivo JSON vazio.
 | hortalica | obejct | Sim | Contém o objeto que referencia a hortliça que está sendo cultivada no terreno contendo ID, nome, mesInicio, mesFim e tipoHortalica
 
 **Exemplo do Corpo do Request `POST`**
+
 ```JSON
 {
     "tamanho": "125m",
@@ -426,7 +429,9 @@ Retorna um arquivo JSON vazio.
     }
 }
 ```
+
 **Exemplo do Corpo do Response**
+
 ```JSON
 {
     "id": "1",
@@ -454,7 +459,9 @@ Retorna um arquivo JSON vazio.
     }
 }
 ```
-**Respostas que podem aparecer no POST :**
+
+**Respostas que podem aparecer no `POST`**
+
 | Código | Descrição |
 |---|---|
 | `201` | criado com sucesso (success)|
@@ -477,6 +484,7 @@ Retorna um arquivo JSON vazio.
 | hortalica | obejct | Sim | Contém o objeto que referencia a hortliça que está sendo cultivada no terreno contendo ID, nome, mesInicio, mesFim e tipoHortalica
 
 **Exemplo do Corpo do Response `PUT`**
+
 ```JSON
 {
     "id": "1",
@@ -507,7 +515,7 @@ Retorna um arquivo JSON vazio.
 
 **Exemplo do Corpo do Response `PUT`**
 
-```js
+```JSON
 		{
 			"id": 1,
 			"tamanho": "180m",
@@ -536,6 +544,7 @@ Retorna um arquivo JSON vazio.
 ```
 
 **Respostas que podem aparecer no `PUT` :**
+
 | Código | Descrição |
 |---|---|
 | `201` | criado com sucesso (success)|
@@ -559,21 +568,337 @@ Retorna um arquivo JSON vazio.
 | `404` | Registro pesquisado não encontrado (Not found)|
 | `405` | Método não implementado.|
 | `500` | Internal server error|
+---
+
+## Hortalica
+
+### Listar_Hortaliças
+
+`GET` /globalSolutio/api/hortalicas/ 
+
+**Exemplo Corpo de resposta**
+
+```JSON
+    {
+		"id": 1,
+		"nome": "cenoura",
+		"mesInicio": "fevereiro",
+		"mesFim": "agosto",
+		"tipoHortalica": {
+			"id": 3,
+			"nome": "A",
+			"familiaBotanica": "Liliaceas"
+			}
+	},
+		{
+		"id": 2,
+		"nome": "repolho",
+		"mesInicio": "maio",
+		"mesFim": "setembro",
+		"tipoHortalica": {
+			"id": 1,
+			"nome": "B",
+			"familiaBotanica": "Solenaceas"
+			}
+
+        }
+        
+```
+
+**HTTP responses para `GET`**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+
+---
+### Buscar_Hortaliça
+
+`GET` /globalSolutio/api/hortalicas/{id}
+
+**Exemplo Corpo de resposta**
+```JSON
+{
+		"id": 1,
+		"nome": "cenoura",
+		"mesInicio": "fevereiro",
+		"mesFim": "agosto",
+		"tipoHortalica": {
+			"id": 3,
+			"nome": "A",
+			"familiaBotanica": "Liliaceas"
+		}
+}
+
+```
+**HTTP responses para `GET`**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+---
+### Cadastrar_Hortalica
+
+`POST` /globalSolutio/api/hortalicas/
+
+|    Campo     | Tipo | Obrigatorio | Descrição
+|--------------|------|:-----------:|----------|
+| nome | String | sim | Nome da hortalça que está sendo cadastrada
+| mesInicio | String | sim | O mês de inicio do período fértil da hortaliça que está sendo cadastrada
+| mesFim | String | sim | O mês do fim do período fértil da hortaliça que está sendo cadastrada
+| tipoHortalica | Obejct | sim | Objeto que se refere ao tipo da hortaliça que esta sendo cadastrada contendo ID, nome e familia botanica
+
+**Exemplo Corpo de request**
+```JSON
+{
+		"id": 1,
+		"nome": "Beterraba",
+		"mesInicio": "Abril",
+		"mesFim": "Agosto",
+		"tipoHortalica": {
+			"id": 3,
+			"nome": "A",
+			"familiaBotanica": "Liliaceas"
+		}
+}
+```
+
+**Exemplo Corpo de resposta**
+```JSON
+{
+		"id": 1,
+		"nome": "Beterraba",
+		"mesInicio": "Abril",
+		"mesFim": "Agosto",
+		"tipoHortalica": {
+			"id": 3,
+			"nome": "A",
+			"familiaBotanica": "Liliaceas"
+		}
+}
+```
+**HTTP responses para POST**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+---
+### Atualizar_Hortaliças
+
+`PUT` /globalSolutio/api/hortalicas/{id}
+
+|    Campo     | Tipo | Obrigatorio | Descrição
+|--------------|------|:-----------:|----------|
+|    Nome      |String|     Sim     | Nome da hortalça que está sendo cadastrada
+|   mesInicio  |String|     Sim     | O mês de inicio do período fértil da hortaliça que está sendo cadastrada
+|   mesFim     |String|     Sim     | Objeto que se refere ao tipo da hortaliça que esta sendo cadastrada contendo ID, nome e familia botanica
+
+**Exemplo Corpo de request**
+
+```JSON
+{
+		"id": 1,
+		"nome": "Beterraba",
+		"mesInicio": "Abril",
+		"mesFim": "Agosto",
+		"tipoHortalica": {
+			"id": 3,
+			"nome": "A",
+			"familiaBotanica": "Liliaceas"
+		}
+}
+```
+
+**Exemplo Corpo de resposta**
+```JSON
+{
+		"id": 1,
+		"nome": "Beterraba",
+		"mesInicio": "Abril",
+		"mesFim": "Agosto",
+		"tipoHortalica": {
+			"id": 3,
+			"nome": "A",
+			"familiaBotanica": "Liliaceas"
+		}
+}
+```
+
+**HTTP responses para `PUT`**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+---
+### Deletar_Hortaliça
+
+`Delete` /globalSolutio/api/hortalicas/{id}
+
+Retorna um arquivo JSON vazio.
+
+**Respostas que podem aparecer no `DELETE` :**
+
+| Código | Descrição |
+|---|---|
+| `204` | Requisição executada com sucesso (success).|
+| `400` | Erros de validação ou os campos informados não existem no sistema|
+| `401` | Dados de acesso inválidos|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `405` | Método não implementado.|
+| `500` | Internal server error|
+---
 
 
+## Tipo das Hortaliças
+
+### Listar tipos_de_Hortaliças
+
+`GET` /globalSolutio/api/tipohortalicas/ 
+
+**Exemplo Corpo de resposta**
+
+```JSON
+    {
+	"id": 3,
+	"nome": "A",
+	"familiaBotanica": "Liliaceas"
+		},
+	{
+	"id": 1,
+	"nome": "B",
+	"familiaBotanica": "Solenaceas"
+		},
+	{
+	"id": 2,
+	"nome": "S",
+	"familiaBotanica": "Umbeliferas"
+		}
+```
+
+**HTTP responses para `GET`**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+
+---
+### Buscar_Tipo_Hortaliça
+
+`GET` /globalSolutio/api/tipohortalicas
+
+**Exemplo Corpo de resposta**
+```JSON
+{
+    "id": 3,
+    "nome": "A",
+    "familiaBotanica": "Liliaceas"
+},
+```
+
+**HTTP responses para `GET`**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+---
+### Cadastrar_tipo_Hortaliças
+
+`POST` /globalSolutio/api/hortalicas/
+
+|    Campo     |  Tipo  | Obrigatorio | Descrição
+|--------------|--------|:-----------:|----------|
+|     Nome     | String |     sim     | Nome da hortalça que está sendo cadastrada
+| tipo Botanica| String |     sim     | Campo para verificar a familia e classe que o tipo da hortaliça pertence
+
+**Exemplo Corpo de request**
+
+```JSON
+{
+	"nome": "A",
+	"familiaBotanica": "Liliaceas"
+}
+```
+**Exemplo Corpo de response**
+
+```JSON
+{
+	"nome": "A",
+	"familiaBotanica": "Liliaceas"
+}
+```
+
+**HTTP responses para `POST`**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+---
+### Atualizar_Tipo_Hortaliças
 
 
+`PUT` /globalSolutio/api/hortalicas/{id}
 
+|    Campo     |  Tipo  | Obrigatorio | Descrição
+|--------------|--------|:-----------:|----------|
+|     Nome     | String |     sim     | Nome da hortalça que está sendo cadastrada
+| tipo Botanica| String |     sim     | Campo para verificar a familia e classe que o tipo da hortaliça pertence
 
+**Exemplo Corpo de request**
 
+```JSON
+{
+	"nome": "B",
+	"familiaBotanica": "Liliaceas"
+}
+```
+**Exemplo Corpo de response**
 
+```JSON
+{
+	"nome": "A",
+	"familiaBotanica": "Umbeliferas"
+}
+```
 
+**HTTP responses para `PUT`**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+---
+### Deletar_Tipo_Hortalica
 
+`Delete` /globalSolutio/api/tipohortalicas/{id}
 
+Retorna um arquivo JSON vazio.
 
+**Respostas que podem aparecer no `DELETE` :**
 
-
-
+| Código | Descrição |
+|---|---|
+| `204` | Requisição executada com sucesso (success).|
+| `400` | Erros de validação ou os campos informados não existem no sistema|
+| `401` | Dados de acesso inválidos|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `405` | Método não implementado.|
+| `500` | Internal server error|
+---
 
 
 

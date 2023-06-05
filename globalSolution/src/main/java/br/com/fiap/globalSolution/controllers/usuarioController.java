@@ -2,6 +2,7 @@ package br.com.fiap.globalSolution.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.globalSolution.exception.RestNotFoundException;
+import br.com.fiap.globalSolution.models.Credencial;
 import br.com.fiap.globalSolution.models.Usuario;
 import br.com.fiap.globalSolution.repository.UsuarioRepository;
+import br.com.fiap.globalSolution.service.TokenService;
 import jakarta.validation.Valid;
 
 // update
@@ -30,6 +34,27 @@ public class UsuarioController {
 
     @Autowired
     UsuarioRepository repository; 
+
+    @Autowired
+    TokenService tokenService;
+    
+    //implementaçõs de Security
+
+    @Autowired
+    AuthenticationManager manager;
+
+    @Autowired
+    PasswordEncoder encoder;
+
+    @PostMapping("/api/usuarios/login")
+    public ResponseEntity<Object> login(@RequestBody @Valid Credencial credencial){
+        manager.authenticate(credencial.toAuthentication());
+
+        var token = tokenService.generateToken(credencial);
+        return ResponseEntity.ok(token);
+    }
+
+    //end
     
     @GetMapping("/api/usuarios")
     public Page<Usuario> index(@PageableDefault(size= 100,sort = {"nome"}) Pageable pageable){
@@ -46,6 +71,7 @@ public class UsuarioController {
     @PostMapping("/api/usuarios")
     public ResponseEntity<Usuario> create(@RequestBody @Valid Usuario usuario){
         log.info("cadastrando usuario: " + usuario);
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
 
         repository.save(usuario);
 
