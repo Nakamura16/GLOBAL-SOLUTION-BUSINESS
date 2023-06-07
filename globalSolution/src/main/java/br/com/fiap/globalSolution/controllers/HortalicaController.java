@@ -38,6 +38,22 @@ public class HortalicaController {
         return repository.findByNomeContaining(nome, pageable);
     }
 
+    @GetMapping("/api/hortalicas/inicio")
+    public Hortalica getHortalicaByMesInicio(@RequestParam(required = false) String mesInicio) {
+        if (mesInicio == null)
+        throw new IllegalArgumentException("O parâmetro 'mesInicio' é obrigatório.");
+
+        return repository.findByMesInicio(mesInicio);
+    }
+
+    @GetMapping("/api/hortalicas/fim/")
+    public Hortalica getHortalicaByMesFim(@RequestParam(required = false) String mesFim) {
+        if (mesFim == null)
+        throw new IllegalArgumentException("O parâmetro 'mesFim' é obrigatório.");
+
+        return repository.findByMesFim(mesFim);
+    }
+
     @GetMapping("/api/hortalicas/{id}")
     public ResponseEntity<Hortalica> show(@PathVariable int id){
         log.info("buscando hortalica com id:" + id);
