@@ -51,12 +51,12 @@ public class DataBaseSeeder implements CommandLineRunner {
         TipoHortalica tipo2 = new TipoHortalica(2, 'b', "alou");
         TipoHortalica tipo3 = new TipoHortalica(3, 'c', "alou");
         tipoHortalicaRepository.saveAll(List.of(tipo1,tipo2,tipo3));
-        
+                
         Hortalica horta1 = new Hortalica(1, "cenoura", "fevereiro", "agosto", tipo3);
         Hortalica horta2 = new Hortalica(2, "repolho", "maio", "setembro", tipo1);
         Hortalica horta3 = new Hortalica(3, "tomate", "julho", "outubro", tipo2);
         hortalicaRepository.saveAll(List.of(horta1, horta2, horta3));
-        
+
         Terreno terreno1 = new Terreno(1, "125m", "grande da roça", "Rua n/a", "1225", "ZS", usuario1, horta1);
         Terreno terreno2 = new Terreno(2, "145m", "pequeno da roça", "rua b", "1125", "ZN", usuario2, horta2);
         Terreno terreno3 = new Terreno(3, "135m", "médio da roça", "rua 9", "1112", "ZL", usuario3, horta3);

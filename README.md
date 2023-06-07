@@ -7,6 +7,7 @@
 
 
 ## Usuario
+- [Login](#login)
 - [Listar Todos usuários](#listar_usuários)
 - [Buscar usuário](#buscar_usuário)
 - [Cadastrar usuário](#cadastrar_usuário)
@@ -28,6 +29,9 @@
 ## Hortaliça
 - [Listar hortaliças](#listar_hortaliças)
 - [Buscar Hortaliça](#buscar_hortaliça)
+- [Buscar MesInicio]()
+- [Buscar MesFim]()
+- [Buscar Nome da hortalica]()
 - [Cadastrar hortaliças](#cadastrar_hortalica)
 - [Atualizar hortaliças](#atualizar_hortaliças)
 - [deletar hortaliças](#deletar_hortaliça)
@@ -70,6 +74,39 @@ DELETE
 
 ## Usuário
 
+### Login
+
+`POST` /globalSolutio/api/usuarios/login
+
+|    Campo     | Tipo | Obrigatorio | Descrição
+|--------------|------|:-----------:|----------|
+|    Username  |String|     Sim     | Campo para que insira um nome para usar no aplicativo
+|     Senha    |String|     Sim     | Senha do usuário para acesso 
+
+**Exemplo Corpo do request**
+```JSON
+{
+    "username":"marimari",
+    "senha":"hello"
+}
+```
+
+**Exemplo corpo de reposta**
+```JSON
+{
+    "token": <token gerado>,
+    "type": "JWT",
+    "prefix": "Bearer"
+}
+```
+**HTTP responses para POST**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+---
 ### Listar_Usuários
 
 `GET` /globalSolutio/api/usuarios
@@ -132,15 +169,34 @@ DELETE
 |    Username  |String|     Sim     | Campo para que insira um nome para usar no aplicativo
 |     Senha    |String|     Sim     | O usuario deve criar uma senha  para uso do aplicativo
 
-
+**Exemplo Corpo do request**
 ```JSON
-
 {
     "nome": "Jose Augusto da Silva",
     "username": "JoseGuto",
     "senha": "222222"
 }
 
+```
+
+**Exemplo corpo de resposta**
+```JSON
+{
+    "id": 3,
+    "nome": "CJose Augusto da Silvaarlos",
+    "username": "JoseGuto",
+    "senha": "222222@",
+    "enabled": true,
+    "accountNonExpired": true,
+    "credentialsNonExpired": true,
+    "authorities": [
+        {
+            "authority": "ROLE_USUARIO"
+        }
+    ],
+    "password": "222222@",
+    "accountNonLocked": true
+}
 ```
 
 **HTTP responses para POST**
@@ -156,7 +212,11 @@ DELETE
 `PUT` /globalSolutio/api/usuarios/{id}
 
 **Atributos do request**
-{...}
+|    Campo     | Tipo | Obrigatorio | Descrição
+|--------------|------|:-----------:|----------|
+|     Nome     |String|     Sim     | Campo para preenchimento de nome de usuario
+|    Username  |String|     Sim     | Campo para que insira um nome para usar no aplicativo
+|     Senha    |String|     Sim     | O usuario deve criar uma senha  para uso do aplicativo
 
 **Exemplo Corpo do request**
 
@@ -215,8 +275,8 @@ Retorna um arquivo JSON vazio.
     "id": 1,
     "telefone": "956783112",
     "ddd": "011",
-    "ddi": "+55"
-    "usuario": {
+    "ddi": "+55",
+    "usuario":{
         "id": 1,
         "nome": "Maria",
         "username": "carlitos",
@@ -572,9 +632,62 @@ Retorna um arquivo JSON vazio.
 
 ## Hortalica
 
+### Busca_Mes_Fim
+`GET` globalSolution/api/hortalicas/fim/?mesFim=setembro
+
+**Exemplo Corpo de resposta**
+```JSON
+{
+    "id": 1,
+    "nome": "cenoura",
+    "mesInicio": "fevereiro",
+    "mesFim": "setembro",
+    "tipoHortalica": {
+        "id": 3,
+        "nome": "c",
+        "familiaBotanica": "alou"
+    }
+}
+```
+**HTTP responses para `GET`**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+---
+### Busca_Mes_Inicio
+
+`GET` globalSolution/api/hortalicas/inicio?mesInicio=fevereiro
+
+**Exemplo Corpo de resposta**
+```JSON
+{
+    "id": 1,
+    "nome": "cenoura",
+    "mesInicio": "fevereiro",
+    "mesFim": "agosto",
+    "tipoHortalica": {
+        "id": 3,
+        "nome": "c",
+        "familiaBotanica": "alou"
+    }
+}
+```
+**HTTP responses para `GET`**
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success)|
+| `400` | Bad request|
+| `404` | Registro pesquisado não encontrado (Not found)|
+| `500` | Internal server error|
+---
 ### Listar_Hortaliças
 
-`GET` /globalSolutio/api/hortalicas/ 
+`GET` /globalSolutio/api/hortalicas/?nome="cenoura"
+
+parâmetro "nome" opcional
 
 **Exemplo Corpo de resposta**
 
